@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="menu">
+        <ul class="hover-menu" data-text="menu">
+            <li class="home">Home</li>
+            <li class="about">about</li>
+            <li class="setting">setting</li>
+            <li class="etc">etc</li>
+        </ul>
+    </div>
+    <script>
+        const lists = document.querySelectorAll("li")
+        lists.forEach(list => {
+            list.style.display = "none"
+
+            const ul = document.querySelector("ul")
+            ul.addEventListener("mouseenter", function(event){
+                list.style.display = "block"
+            })
+
+            ul.addEventListener("mouseout", function(event){
+                list.style.display = "none"
+            })
+        })
+
+        
+
+
+        
+    </script>
+</body>
+</html>
