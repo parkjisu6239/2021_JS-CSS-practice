@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            transition: background  2s cubic-bezier(0.075, 0.8, 0.165, 1)
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+    
+            const preBtn = document.querySelector(".pre")
+            const nxtBtn = document.querySelector(".nxt")
+            const pageNum = document.querySelector(".page")
+
+            const bgColor = ["#E99497", "#F3C583", "#E8E46E", "#CDF0EA", "#F7DBF0", "#BEAEE2"]
+            let num = 0
+    
+            nxtBtn.addEventListener("click", function() {
+                num ++
+                pageNum.innerText = num
+                bgColorChange()
+            })
+
+            preBtn.addEventListener("click", function() {
+                if (num > 1) {
+                num --
+                pageNum.innerText = num
+                bgColorChange()
+                }
+            })
+
+            function bgColorChange(){
+                document.querySelector("body").style.backgroundColor = bgColor[num%bgColor.length]
+            }
+
+            bgColorChange()
+        }
+    </script>
+</head>
+<body>
+    <button class="pre">Prev</button>
+    <button class="nxt">Next</button>
+    <h1><span class="page">0</span>페이지 입니다</h1>
+</body>
+</html>
