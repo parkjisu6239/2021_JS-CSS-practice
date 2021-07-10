@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            transition: all 1s ease-in-out;
+            overflow-x: hidden; /* 넘치는거 안보이게 함 */
+        }
+
+        section img{
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); /* 축이 좌상단이라 중앙으로 이동 */
+            height: 300px;
+            opacity: 0;
+            transition: all 1s ease-in-out;
+        }
+
+        section.active img { /* section에 active라는 class가 있을때 img의 스타일 */
+            opacity: 1;
+        }
+
+        .navi {
+            position: fixed;
+            left: 50%;
+            top: 25%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 30px;
+            cursor: pointer;
+        }
+
+        section {
+            position: relative;
+            height: 100vh; /* 전체 화면 꽉 채우기 */
+            width: 100vw; /* 전체 화면 꽉 채우기 */
+            border-top: dashed 2px black
+        }
+
+        .pointer {
+            position: fixed;
+            right: 3vw;
+            top: 40%;
+            z-index: 100;
+        }
+
+        li {
+            list-style: none;
+            width: 12px;
+            height: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+            background-color: #666;
+            border-radius: 50%;
+            transition: background 1s ease-out;
+        }
+
+        li.active {
+            background-color: rgb(15, 15, 15);
+        }
+
+        .progressBar {
+            margin-top: 20px;
+            background-color: black;
+            height: 5px;
+            border-radius: 5px;
+            text-align: start;
+            width: 10%;
+            transition: all .1s ease-out;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            const preBtn = document.querySelector(".preBtn")
+            const nextBtn = document.querySelector(".nextBtn")
+            const span = document.querySelector('span')
+            const bgColor = ["#E99497", "#F3C583", "#E8E46E", "#CDF0EA"]
+            const section = document.querySelectorAll('section')
+            const body = document.querySelector('body')
+            const img = document.querySelector('img')
+            const li = document.querySelectorAll('li')
+            const progressBar = document.querySelector('.progressBar')
+            const scrollHeight = body.scrollHeight
+
+            let pageNum = 0 // 페이지 인덱스 0~3, 페이지는 1~4
+            const totalNum = section.length // 전체 길이
+
+            preBtn.addEventListener('click', function() {
+                if (pageNum > 0) {
+                    pageNum --
+                    pageChange()
+                    pageChangeBtn()
+                }
+            })
+
+            nextBtn.addEventListener('click', function() {
+                if (pageNum < totalNum-1) {
+                    pageNum ++
+                    pageChange()
+                    pageChangeBtn()
+                }
+            })
+            
+            li.forEach((ele, idx) => {
+                ele.addEventListener('click', function(){
+                    pageNum = idx
+                    pageChange()
+                    pageChangeBtn()
+                })
+            })
+
+            function pageChange(){
+                span.innerText = pageNum + 1 // 페이지 번호 변경
+                body.style.backgroundColor = bgColor[pageNum] // 배경색 변경
+                for(var i=0; i<totalNum; i++){ // section태그에서 active 클래스 다 빼기
+                    section[i].classList.remove("active");
+                    li[i].classList.remove("active");
+                    // section[i].className = "";
+                }
+                section[pageNum].classList.add("active"); // 현재 page의 section태그에 active 클래스 넣기
+                li[pageNum].classList.add("active")
+
+                const scroll = this.scrollY
+                progressBar.style.width = `${(scroll+section[0].offsetHeight)/scrollHeight*100}%`
+            }
+
+            function pageChangeBtn(){
+                // window.scrollTo(0, section[pageNum].offsetTop)
+                window.scrollTo({ // ~로 스크롤하기
+                    top: section[pageNum].offsetTop, // 각 section 상단에 맞추기
+                    behavior: 'smooth'
+                })
+            }
+            
+            // 페이지 로드되면 바로 실행
+            pageChange()
+
+            window.addEventListener("scroll", function(event){ // 스크롤 이벤트 감지
+                const scroll = this.scrollY // 아래것도 동일
+                // const scroll2 = document.documentElement.scrollTop
+                // console.log(scroll)
+
+                // if 문 여러개 - 재사용성 안좋음
+                // if(scroll < section[1].offsetTop){
+                //     pageNum = 0
+                // }
+                // if(scroll > section[1].offsetTop){
+                //     pageNum = 1
+                // }
+                // if(scroll > section[2].offsetTop){
+                //     pageNum = 2
+                // }
+                // if(scroll > section[3].offsetTop){
+                //     pageNum = 3
+                // }
+
+                // for - if
+                for (let i=0; i<totalNum; i++){
+                    // 방법 1 : 페이지가 중간 이상 넘어가면 다음페이지로 간주
+                    if (scroll > section[i].offsetTop - window.outerHeight/2 &&
+                    scroll < section[i].offsetTop - window.outerHeight/2 + section[i].offsetHeight) {
+                        pageNum = i
+                        break
+                    }
+
+                    // 방법2 : 페이지가 해당 페이지에 완전히 도달해야 다음페이지로 간주
+                    // if (scroll > section[i].offsetTop && scroll < section[i].offsetTop + section[i].offsetHeight) {
+                    //     pageNum = i
+                    //     break
+                    // }
+                }
+                pageChange()
+            })
+
+        }
+
+    </script>
+</head>
+<body>
+    <ul class="pointer">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
+
+    <div class="navi">
+        <button class="preBtn">PREV</button>
+        <button class="nextBtn">NEXT</button>
+        <div class="progressBar"></div>
+        <h1><span>1</span> 페이지 입니다.</h1>
+    </div>
+
+    <section>
+        <h2>page 1</h2>
+        <p>스크롤, pre/next 버튼, 좌측 navigation, progressbar</p>
+        <img src="https://mblogthumb-phinf.pstatic.net/20150411_28/air0071_1428744430618VRN9L_JPEG/%C5%BD%C1%F6%B1%E2_%2812%29.jpg?type=w2" alt="">
+    </section>
+
+    <section>
+        <h2>page 2</h2>
+        <p>페이지, 배경색, 이미지 스무스하게 변경</p>
+        <img src="https://pbs.twimg.com/media/EYlqmoAUwAAzi3_.jpg" alt="">
+    </section>
+
+    <section>
+        <h2>page 3</h2>
+        <p>우측 네비게이션도 페이지에 따라 색상 변화</p>
+        <img src="https://mblogthumb-phinf.pstatic.net/20150411_238/air0071_1428744432022nWyUp_JPEG/%C5%BD%C1%F6%B1%E2_%2819%29.jpg?type=w2" alt="">
+    </section>
+
+    <section>
+        <h2>page 4</h2>
+        <p>프로그래스바는 스크롤값에 따라 변경</p>
+        <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTA2MjVfNSAg/MDAxNTYxNDM5MTIyMDE0.slpB6tpdCSJM_n8PCP7DmdCP3DoIrMQJQzp5usRHJkQg.OwjjKcgg-Bu70RzTAUSJ9WMwDPFR4VYaACIlUsuESfkg.JPEG.qe4865/KakaoTalk_Moim_6T0fjoLUIJ0OWBNVrfnuUHuN0m1Bw5.jpg?type=w800" alt="">
+    </section>
+</body>
+</html>
