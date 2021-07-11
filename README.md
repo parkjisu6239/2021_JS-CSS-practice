@@ -55,7 +55,7 @@
 
 [결과화면 👀](https://parkjisu6239.github.io/2021_JS-CSS-practice/MouseEffect/eyes)
 
-![eyes](.\README.assets\eyes.gif)
+![eyes](README.assets/eyes.gif)
 
 
 
@@ -64,4 +64,4 @@
 - 마우스가 눈앞 밖에 있으면, 위치에 따라 호를 그리며 이동한다.
 - 1~4분면에 따라 각각 좌표 구하는 계산이 약간 다르다. 비례식으로 구했다!
 
-![eyes](.\README.assets\eyes.jpg)
+![eyes](README.assets/eyes.jpg)
