@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+        body{
+            overflow-x: hidden;
+            font-family: 'Staatliches', cursive;
+            background: linear-gradient(to right, rgb(153, 53, 6), rgb(255, 81, 0));
+            color: white;
+        }
+
+        section {
+            /* border-top: dashed 1px rgba(80, 80, 80, 0.2); */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .back-circle {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background-color: white;
+            z-index: -2;
+            left: 72%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav {
+            position: fixed;
+            left: 88%;
+            top: 5%;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 5px 20px;
+        }
+
+        section h3{ 
+            position: relative;
+            font-size: 40px;
+            left: 5%;
+            top: 40%;
+        }
+
+        section h1{ 
+            position: relative;
+            font-size: 50px;
+            left: 5%;
+            top: 30%;
+        }
+
+        .burger img {
+            position: fixed;
+            left: 72%;
+            top: 0%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.7s ease-in-out;
+        }
+
+        .coke-fry img {
+            position: fixed;
+            left: 50%;
+            top: 60%;
+            opacity: 0;
+            height: 250px;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            transition: all 0.7s ease-in-out;
+        }
+
+        .coke.activate{
+            left: 72%;
+            opacity: 1;
+        }
+
+        .burger1.activate{
+            opacity: 1;
+            top: 60%;
+        }
+
+        .burger2.activate{
+            top: 58%;
+            opacity: 1;
+            /* transform: scale(120%) */
+        }
+
+        .burger3.activate{
+            top: 56%;
+            opacity: 1;
+        }
+
+        .burger4.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger5.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger6.activate{
+            left: 75%;
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger7.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger8.activate {
+            top: 52%;
+            opacity: 1;
+        }
+
+        .burger9.activate {
+            top: 46%;
+            opacity: 1;
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            const section = document.querySelectorAll('section')
+            const img = document.querySelectorAll('img')
+            const total = section.length
+            const preBtn = document.querySelector('.preBtn')
+            const nextBtn = document.querySelector('.nextBtn')
+
+            let pageNum = 0
+
+            preBtn.addEventListener('click', function(){
+                if (pageNum >= 0) {
+                    pageNum --
+                    pageChange()
+                    makeBurger()
+                }
+            })
+
+            nextBtn.addEventListener('click', function(){
+                if (pageNum < total) {
+                    pageNum ++
+                    pageChange()
+                    makeBurger()
+                }
+            })
+
+            function pageChange(){
+                window.scrollTo({
+                    top: section[pageNum].offsetTop,
+                    behavior: 'smooth'
+                })
+            }
+
+            function makeBurger(){
+                for (let j=0; j<total-1; j++){
+                    if (j < pageNum) {
+                        img[j].classList.add('activate')
+                    }else {
+                        img[j].classList.remove('activate')
+                    }
+                }
+            }
+
+            window.addEventListener('scroll', function(){
+                let scroll = this.scrollY
+                
+                for (let i=0; i<total; i++) {
+                    if (scroll > section[i].offsetTop - 50 && scroll < section[i].offsetTop + section[i].offsetHeight - 50) {
+                        pageNum = i
+                        break
+                    }
+                }
+
+                makeBurger()
+            })
+        }
+
+    </script>
+</head>
+<body>
+    <div class="back-circle"></div>
+
+    <div class="nav">
+        <button class="preBtn">Pre</button>
+        <button class="nextBtn">Next</button>
+    </div>
+
+    <section>
+        <h1>How to make hamburger</h1>
+        <h3>Scroll it!</h3>
+    </section>
+
+    <section class="burger">
+        <h3>step 1. put hamburger buns</h3>
+        <img class="burger1" src="hamburger/burger1.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 2. put on lettuce</h3>
+        <img class="burger2" src="hamburger/burger2.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 3. add beef patties</h3>
+        <img class="burger3" src="hamburger/burger3.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 4. add cheddar cheese (I love it 🧀)</h3>
+        <img class="burger4" src="hamburger/burger4.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 5. add fresh onions</h3>
+        <img class="burger5" src="hamburger/burger5.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 6. add some pickles</h3>
+        <img class="burger6" src="hamburger/burger6_1.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 7. add thinly sliced ​​tomatoes</h3>
+        <img class="burger7" src="hamburger/burger7.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 8. add special sauce</h3>
+        <img class="burger8" src="hamburger/burger8_2.png" alt="">
+    </section>
+
+    <section class="burger">
+        <h3>step 9. Finally, cover the hamburger buns.</h3>
+        <img class="burger9" src="hamburger/burger9.png" alt="">
+    </section>
+
+    <section class="coke-fry">
+        <h3>Enjoy your meal 🍔</h3>
+        <img class="coke" src="hamburger/coke1.png" alt="">
+    </section>
+</body>
+</html>
