@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0px;
+            background: radial-gradient(rgb(252, 168, 58), rgb(255, 102, 0)) ;
+            overflow: hidden;
+        }
+
+        .eyes{
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(250, 248, 242);
+            border: solid 1px rgba(0, 0, 0, 0.096);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 10px 10px 20px rgba(0,0,0, 0.2);
+        }
+
+        .left-eye {
+            left: 800px;
+            top: 300px;
+        }
+
+        .right-eye {
+            left: 1100px;
+            top: 300px;
+        }
+
+        .pupil {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border: solid 15px aqua;
+            background-color: rgb(22, 31, 31);
+            border-radius: 50%;
+            z-index: 100;
+            transform: translate(-50%, -50%);
+        }
+
+        .left-pupil {
+            left: 800px;
+            top: 300px;
+        }
+
+        .right-pupil {
+            left: 1100px;
+            top: 300px;
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            const body = document.querySelector('body')
+            const screenHeight = document.body.offsetHeight
+            const screenWidth = document.body.offsetWidth
+
+            const left = document.querySelector('.left-pupil')
+            const leftX = 800
+            const leftY = 300
+
+            const right = document.querySelector('.right-pupil')
+            const rightX = 1100
+            const rightY = 300
+
+            const r = 45
+
+            console.log(screenHeight, screenWidth)
+
+            window.addEventListener('mousemove', function(event){
+                // 마우스 포인터의 위치 반환
+                // console.log(1, event.pageY) 스크롤 포함한 body 전체 영역에서의 Y값
+                // console.log(2, event.offsetY) 스크롤 포함한 body 전체 영역에서의 Y값
+                // console.log(3, event.clientY) 브라우저에서 마우스가 보이는 영역에서의 좌표(스크롤 내려도 커지지 않음)
+
+                let x = event.clientX
+                let y = event.clientY
+
+                moveEyes(left, leftX, leftY)
+                moveEyes(right, rightX, rightY)
+
+                function moveEyes(direction, circleX, circleY){
+                    let dist = Math.sqrt(Math.pow(x-circleX, 2) + (Math.pow(y-circleY, 2)))
+                
+                    if (circleX - r <= x && x <= circleX + r &&  circleY - r <= y && y <= circleY + r) {
+                        direction.style.left = `${x}px`
+                        direction.style.top = `${y}px` 
+                    } else if (x >= circleX) {
+                        direction.style.left = `${r*(x-circleX)/(dist + 1) + circleX}px`
+                        if (y >= circleY) {
+                            direction.style.top = `${r*(y-circleY)/(dist + 1) + circleY}px` 
+                        } else {
+                            direction.style.top = `${circleY - r*(circleY-y)/(dist + 1)}px` 
+                        }
+                    } else {
+                        direction.style.left = `${circleX - r*(circleX-x)/(dist + 1)}px`
+                        if (y >= circleY) {
+                            direction.style.top = `${r*(y-circleY)/(dist + 1) + circleY}px` 
+                        } else {
+                            direction.style.top = `${circleY - r*(circleY-y)/(dist + 1)}px` 
+                        }
+                    }
+                }
+
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="eyes left-eye"></div>
+    <div class="pupil left-pupil"></div>
+
+    <div class="eyes right-eye"></div>
+    <div class="pupil right-pupil"></div>
+    
+</body>
+</html>
