@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+    </style>
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .container{
+            padding: 2%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .side-bar {
+            background-color: #cfcfcf;
+            width: 40vw;
+            height: 85vh;
+            border-radius: 20px;
+            max-width: 400px;
+            text-align: center;
+            
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .friends {
+            background-color: #e9e9e9;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 25px;
+            padding: 8px 40px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .friend-list {
+            background-color: #bebebe;
+            display: inline-block;
+            border-radius: 20px;
+            width: 85%;
+            height: 78%;
+        }
+
+        .friend-item {
+            background-color: #e9e9e9;
+            width: 70%;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 300px;
+            margin-top: 20px;
+            text-align: start;
+            cursor: pointer;
+        }
+
+        .no-login {
+            background-color: #C0C4C6;
+        }
+
+        .center-top {
+            align-items: start;
+            margin-left: 20px;
+            background-color: #cfcfcf;
+            border-radius: 20px;
+            padding: 20px;
+            width: 80vw;
+            height: 70vh;
+        }
+
+
+        .game-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .left * {
+            background-color: #646464;
+            margin-right: 20px;
+            border-radius: 25px;
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+        }
+
+        .right * {
+            background-color: #646464;
+            margin-left: 20px;
+            border-radius: 25px;
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+        }
+
+        .game-list {
+            display: grid;  
+            grid-template-columns: 1fr 1fr;
+            height: auto;
+            row-gap: 30px;
+            column-gap: 20px;
+            margin: 0px auto;
+        }
+
+        .game-box {
+            background-color: #414141;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            display: flex;
+            height: 130px;
+            cursor: pointer;
+        }
+
+        .js-tilt-glare {
+            border-radius: 10px;
+        }
+
+        .thumbnail img {
+            height: 100%;
+            margin-right: 20px;
+        }
+
+        .game-description {
+            width: 100%;
+        }
+
+        .game-description > * {
+            background-color: #f3f3f3;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            padding: 10px 10px;
+            font-size: 25px;
+            display: flex;
+            justify-content: space-between;
+            color: rgb(0, 0, 0);
+        }
+
+        .game-room-id {
+            display: inline-block;
+            background-color: #646464;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .pagination {
+            background-color: #cfcfcf;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            width: 15vw;
+            height: 8vh;
+            margin: 0px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .pagination * {
+            font-size: 50px;
+            background-color: #646464;
+            width: 200px;
+            margin: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="container">
+        <div class="side-bar">
+            <div class="logo">Narang</div>
+            <div class="friends">Friends</div>
+            <div class="friend-list">
+                <div class="friend-item">jisu</div>
+                <div class="friend-item no-login">jisu</div>
+                <div class="friend-item">jisu</div>
+                <div class="friend-item no-login">jisu</div>
+            </div>
+        </div>
+        <div class="center">
+            <div class="center-top">
+                <div class="game-nav">
+                    <div class="left">
+                        <button class="create-room">방만들기</button>
+                        <button class="now-start">바로 시작</button>
+                    </div>
+                    <div class="right">
+                        <button class="sort">정렬</button>
+                        <input class="search-bar" placeholder="방 이름을 입력하세요"></input>
+                    </div>
+                </div>
+                <div class="game-list">
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-box">
+                        <div class="thumbnail">
+                            <img src="https://media.istockphoto.com/vectors/-vector-id654573204?k=6&m=654573204&s=612x612&w=0&h=CtEPAaEomq2jOtJe3DXGVV5OovbO3WogxFbfPlm_MIo=" alt="">
+                        </div>
+                        <div class="game-description">
+                            <div class="game-main-info">
+                                <div class="game-room-id">001</div>
+                                <div class="game-room-title">대전 2반 모여라</div>
+                            </div>
+                            <div class="game-sub-info">
+                                <div class="game-room-status">waiting</div>
+                                <div class="game-room-cnt">참가자  3 / 6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="pre"><</button>
+                <button class="next">></button>
+            </div>
+        </div>
+    </div>
+    <script src="vanilla-tilt.min.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".game-box"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 1,
+        });
+    </script>
+</body>
+</html>
