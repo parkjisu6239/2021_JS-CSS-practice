@@ -1,11 +1,19 @@
 body {
     height: 100vh;
     width: 100vw;
+    background-color: #272736;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #272736;
-    overflow: hidden;
 }
 
 .circle {
@@ -22,7 +30,6 @@ body {
 .duck{
     width: 100px;
     height: 100px;
-    display: inline-block;
     position: absolute;
     z-index: -1;
     animation: move 1s linear infinite;
@@ -31,11 +38,9 @@ body {
 .loading::after {
     content: "Loading";
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 65%;
-    left: 50%;
     color: white;
     text-align: center;
+    transform: translate(-40px, 0px);
     animation: type 1.5s linear infinite;
     font-size: 20px;
     font-weight: 700;
