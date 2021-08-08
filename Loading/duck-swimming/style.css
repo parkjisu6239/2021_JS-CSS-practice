@@ -1,0 +1,81 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #272736;
+    overflow: hidden;
+}
+
+.circle {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 5px solid white;
+    background: url(wave.png);
+    background-size: 200px 100px;
+    background-repeat: repeat-x;
+    animation: flow 4s linear infinite;
+}
+
+.duck{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    position: absolute;
+    z-index: -1;
+    animation: move 1s linear infinite;
+}
+
+.loading::after {
+    content: "Loading";
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 65%;
+    left: 50%;
+    color: white;
+    text-align: center;
+    animation: type 1.5s linear infinite;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+@keyframes type {
+    0% {
+        content: "Loading";
+    }
+    33% {
+        content: "Loading.";
+    }
+    66% {
+        content: "Loading..";
+    }
+    100% {
+        content: "Loading...";
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+    33% {
+        transform: translate(0px, -15px) rotate(-5deg);
+    }
+    66% {
+        transform: translate(0px, -7px) rotate(5deg);
+    }
+    100% {
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+}
+
+@keyframes flow {
+    0% {
+        background-position: -1200px 100px;
+    }
+    100% {
+        background-position: 0px 100px;
+    }
+}
