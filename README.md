@@ -74,4 +74,5 @@
 - wave 이미지 무한 이동으로 물결처럼 보이는 효과, 동시에 움직이는 
 
 
-## 오디오 재생
+## Text to image
+[결과화면 👀](https://parkjisu6239.github.io/2021_JS-CSS-practice/blob/master/textToImage/textToImage.html)
