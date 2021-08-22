@@ -67,7 +67,7 @@
 ![eyes](README.assets/eyes.jpg)
 
 
-## Roading page
+## Loading page
 [결과화면 👀](https://parkjisu6239.github.io/2021_JS-CSS-practice/Loading/duck-swimming/duck-swimming)
 
 - 헤엄치는 오리!
