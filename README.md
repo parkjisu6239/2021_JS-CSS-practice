@@ -71,7 +71,7 @@
 [결과화면 👀](https://parkjisu6239.github.io/2021_JS-CSS-practice/Loading/duck-swimming/duck-swimming)
 
 - 헤엄치는 오리!
-- wave 이미지 무한 이동으로 물결처럼 보이는 효과, 동시에 움직이는 
+- wave 이미지 무한 이동으로 물결처럼 보이는 효과, 동시에 움직이는 효과
 
 
 ## Text to image
