@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        th, td{
+            padding: 10px 20px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="openTextFile()">Open</button>
+    <div id="output" style="display: none;">...</div>
+    <div class="json-parse"></div>
+    <div id="body"></div>
+    <script>
+        
+        function makeTable(data) {
+            let table = document.createElement('table');
+            let thead = document.createElement('thead');
+            let tbody = document.createElement('tbody');
+    
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            
+            // Adding the entire table to the body tag
+            document.getElementById('body').appendChild(table);
+            
+            let header = document.createElement('tr');
+            
+            console.log(data[0], typeof data[0])
+            Object.keys(data[0]).forEach(key => {
+                let feature = document.createElement('th');
+                feature.innerHTML = key;
+                header.appendChild(feature);
+            });
+            thead.appendChild(header);
+
+            data.forEach(ele => {
+                let row = document.createElement('tr');
+                Object.keys(ele).forEach(key => {
+                    let col = document.createElement('td');
+                    if (key === 'args') {
+                        let content = ''
+                        const args = ele[key]
+                        Object.keys(args).forEach(arg => {
+                            content += `${arg} : ${args[arg]}`
+                        })
+                        col.innerHTML = content
+                    } else {
+                        col.innerHTML = ele[key];
+                    }
+                    row.appendChild(col);
+                });
+                tbody.appendChild(row);
+            })
+        }
+
+        function openTextFile() {
+            var input = document.createElement("input");
+            input.type = "file";
+            input.accept = "text/plain"; // 확장자가 xxx, yyy 일때, ".xxx, .yyy"
+            input.onchange = function (event) {
+                processFile(event.target.files[0]);
+            };
+            input.click();
+        }
+        function processFile(file) {
+            console.log(file)
+            var reader = new FileReader();
+            reader.onload = function () {
+                output.innerText = reader.result;
+                const obj = JSON.parse(reader.result)
+                console.log(obj.traceEvents)
+                makeTable(obj.traceEvents)
+            };
+            reader.readAsText(file, /* optional */ "euc-kr");
+        }
+    </script>
+</body>
+</html>
