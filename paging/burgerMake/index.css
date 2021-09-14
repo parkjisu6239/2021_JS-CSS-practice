@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+        body{
+            overflow-x: hidden;
+            font-family: 'Staatliches', cursive;
+            background: linear-gradient(to right, rgb(153, 53, 6), rgb(255, 81, 0));
+            color: white;
+        }
+
+        section {
+            /* border-top: dashed 1px rgba(80, 80, 80, 0.2); */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .back-circle {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background-color: white;
+            z-index: -2;
+            left: 72%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav {
+            position: fixed;
+            left: 88%;
+            top: 5%;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 5px 20px;
+        }
+
+        section h3{ 
+            position: relative;
+            font-size: 40px;
+            left: 5%;
+            top: 40%;
+        }
+
+        section h1{ 
+            position: relative;
+            font-size: 50px;
+            left: 5%;
+            top: 30%;
+        }
+
+        .burger img {
+            position: fixed;
+            left: 72%;
+            top: 0%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.7s ease-in-out;
+        }
+
+        .coke-fry img {
+            position: fixed;
+            left: 50%;
+            top: 60%;
+            opacity: 0;
+            height: 250px;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            transition: all 0.7s ease-in-out;
+        }
+
+        .coke.activate{
+            left: 72%;
+            opacity: 1;
+        }
+
+        .burger1.activate{
+            opacity: 1;
+            top: 60%;
+        }
+
+        .burger2.activate{
+            top: 58%;
+            opacity: 1;
+            /* transform: scale(120%) */
+        }
+
+        .burger3.activate{
+            top: 56%;
+            opacity: 1;
+        }
+
+        .burger4.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger5.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger6.activate{
+            left: 75%;
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger7.activate{
+            top: 54%;
+            opacity: 1;
+        }
+
+        .burger8.activate {
+            top: 52%;
+            opacity: 1;
+        }
+
+        .burger9.activate {
+            top: 46%;
+            opacity: 1;
+        }

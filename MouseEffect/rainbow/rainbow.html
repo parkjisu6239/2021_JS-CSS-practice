@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="./index.js"></script>
 </head>
 <body>
     <div class="board">
@@ -108,59 +110,3 @@
     </div>
 </body>
 </html>
-
-
-
-<script>
-
-const boxes = document.querySelectorAll(".group div")
-boxes.forEach(box => {
-    box.addEventListener('mouseenter', function(event){
-        box.style.backgroundColor = "red";
-        setTimeout(function() {
-            box.style.backgroundColor = "orange";
-        }, 50);
-        setTimeout(function() {
-            box.style.backgroundColor = "yellow";
-        }, 100);
-        setTimeout(function() {
-            box.style.backgroundColor = "green";
-        }, 150);
-        setTimeout(function() {
-            box.style.backgroundColor = "blue";
-        }, 200);
-        setTimeout(function() {
-            box.style.backgroundColor = "navy";
-        }, 250);
-        setTimeout(function() {
-            box.style.backgroundColor = "purple";
-        }, 300);
-    });
-
-    box.addEventListener('mouseleave', function(event){
-        setTimeout(function() {
-            box.style.backgroundColor = "";
-            }, 300);
-    });
-})
-
-</script>
-
-
-<style>
-.group div {
-    height: 80px;
-    width: 80px;
-    border: solid 1px rgb(179, 179, 179);
-    transition-duration: 0.2s;
-}
-
-.group {
-    display: flex;
-    justify-content: center;
-}
-
-/* .group div:hover {
-    background-color: aqua;
-} */
-</style>

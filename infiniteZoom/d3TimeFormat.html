@@ -1,0 +1,178 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script
+    type="text/javascript"
+    src="https://d3js.org/d3.v3.js"
+  ></script>
+      <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+  <style id="compiled-css" type="text/css">
+           body {
+       font: 10px sans-serif;
+     }
+     .axis path,
+     .axis line {
+       fill: none;
+       stroke: #000;
+       shape-rendering: crispEdges;
+     }
+     .line {
+       fill: none;
+       stroke: steelblue;
+       stroke-width: 1.5px;
+     }
+     pre#data {
+       display: none;
+     }
+     pre#data1 {
+       display: none;
+     }
+rect {
+  fill: #ddd;
+}
+    
+  </style>
+</head>
+<body>
+    <pre id="data">
+id,date,value
+1,1/2/15 10:00:00,106.25
+2,1/2/15 11:00:00,106.26
+3,1/2/15 12:00:00,107.75
+4,1/2/15 13:00:00,111.89
+5,1/2/15 14:00:00,112.01
+6,1/2/15 15:00:00,109.25
+7,1/2/15 16:00:00,110.22
+8,1/5/15 10:00:00,106.25
+9,1/5/15 11:00:00,106.26
+10,1/5/15 12:00:00,107.75
+11,1/5/15 13:00:00,111.89
+12,1/5/15 14:00:00,112.01
+13,1/5/15 15:00:00,109.25
+14,1/5/15 16:00:00,110.22
+15,1/6/15 10:00:00,106.25
+16,1/6/15 11:00:00,106.26
+17,1/6/15 12:00:00,107.75
+18,1/6/15 13:00:00,111.89
+19,1/6/15 14:00:00,112.01
+20,1/6/15 15:00:00,109.25
+21,1/6/15 16:00:00,110.22
+22,1/7/15 10:00:00,106.25
+23,1/7/15 11:00:00,106.26
+24,1/7/15 12:00:00,107.75
+25,1/7/15 13:00:00,111.89
+26,1/7/15 14:00:00,112.01
+27,1/7/15 15:00:00,109.25
+28,1/7/15 16:00:00,110.22
+29,1/8/15 10:00:00,106.25
+30,1/8/15 11:00:00,106.26
+31,1/8/15 12:00:00,107.75
+32,1/8/15 13:00:00,111.89
+33,1/8/15 14:00:00,112.01
+34,1/8/15 15:00:00,109.25
+35,1/8/15 16:00:00,110.22
+</pre>
+    <script type='text/javascript'>
+var data1 = d3.csv.parse(d3.select("pre#data").text());
+//var data1 = d3.csv.parse( d3.select("pre#data").text());
+var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
+var data2 = data1.map(function(d) { return {id: d.id, date: parseDate(d.date), value: d.value}});
+var customTimeFormat = d3.time.format.multi([
+  [".%L", function(d) {    return d.getMilliseconds();  }],
+  [":%S", function(d) {    return d.getSeconds();  }],
+  ["%I:%M", function(d) {    return d.getMinutes();  }],
+  //["", function(d) { return (d.getHours() % 2 == 1 ); }],
+  ["%I  %p", function(d) {    return d.getHours() - 10;  }],
+  ["%a \n  %d", function(d) {    return d.getDay() && d.getDate() != 1;  }],
+  ["%b %d", function(d) {    return d.getDate() != 1;  }],
+  ["%B", function(d) {    return d.getMonth();  }],
+  ["%Y", function() {    return true;  }]
+]);
+var valuesForXAxis = data1.map(function(d, i) { return customTimeFormat(parseDate(d.date)); });
+var idForXAxis = data1.map(function(d, i) { return Number(d.id); });
+console.log(valuesForXAxis)
+var margin = {
+    top: 40,    right: 20,    bottom: 40,    left: 85
+  },
+  width = 600,  height = 450;
+console.log(idForXAxis);
+console.log(d3.min(idForXAxis));
+console.log(d3.max(idForXAxis));
+//var x = d3.scale.linear()
+//   .domain(idForXAxis)
+ // .range([0, width]);
+var x = d3.scale.linear()
+    .domain([d3.min(idForXAxis), d3.max(idForXAxis)])
+    .range([0, width]);
+var y = d3.scale.linear()
+  .domain([d3.min(data2, function(d, i) {
+    return d.value
+  }) - 5, d3.max(data2, function(d, i) {
+    return d.value
+  }) + 10])
+  .range([height, 0]);
+var xAxis = d3.svg.axis().scale(x)
+  .orient("bottom")
+  .ticks(idForXAxis.length)
+  .tickFormat(function(d,i){ return valuesForXAxis[i] })
+var yAxis = d3.svg.axis().scale(y)
+  .orient("left");
+var line = d3.svg.line()
+  .x(function(d) { return x(d.date);  })
+  .y(function(d) { return y(d.value);  });
+var zoom = d3.behavior.zoom()
+    .x(x)
+    .y(y)
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .call(zoom);
+svg.append("rect")
+    .attr("width", width)
+    .attr("height", height);
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    // .selectAll(".tick text")
+  //     .call(wrap, x.rangeBand());
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+function zoomed() {
+console.log("Scale is ", d3.event.scale);
+   xAxis.ticks(idForXAxis.length/d3.event.scale);
+  svg.select(".x.axis")
+  .call(xAxis);
+  svg.select(".y.axis").call(yAxis);
+}
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+      words = text.text().split(/\s+/).reverse(),
+      word,
+      line = [],
+      lineNumber = 0,
+      lineHeight = 1.1, // ems
+      y = text.attr("y"),
+      dy = parseFloat(text.attr("dy")),
+      tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      }
+    }
+  });
+}
+  </script>
+</body>
+</html>

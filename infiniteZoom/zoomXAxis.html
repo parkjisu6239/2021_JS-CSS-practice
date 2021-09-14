@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script
+    type="text/javascript"
+    src="https://d3js.org/d3.v3.js"
+  ></script>
+</head><!--from ww  w  .  d  emo2s .c  o m-->
+<body>
+  <script type='text/javascript'>
+  var width = 1024;
+  var height = 768;
+  var dataArray = [20, 40, 60, 120];
+  var widthScale = d3.scale.linear()
+    .domain([0, 120])
+    .range([0, width]);
+  
+  var xAxis = d3.svg.axis()
+    .scale(widthScale);
+
+  var color = d3.scale.linear()
+    .domain([0, 120])
+    .range(["red", "blue"]);
+
+  var canvas = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  canvas
+    .append("g")
+    .attr("transform", "translate(20, 0)")
+    .call(xAxis);
+
+  var bars = canvas.selectAll("rect")
+    .data(dataArray)
+    .enter()
+    .append("rect")
+    .attr("width", function(d){ return widthScale(d); })
+    .attr("height", 20)
+    .attr("fill", function(d){ return color(d); })
+    .attr("y", function(d, i){ return i*30; });
+</script>
+</body>
+</html>

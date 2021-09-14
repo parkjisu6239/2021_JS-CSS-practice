@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+</head>
+<body>
+    <svg width="800" style="border: 1px solid black;"></svg>
+    <script>
+        var x = d3.scale.linear()
+        .domain([0, 800])
+        .range([0, 800]);
+
+        var y = d3.scale.linear()
+        .domain([0, 800])
+        .range([0, 800]);
+
+        var rectangleSelector = d3.select('svg')
+        .append('g')
+        .selectAll('rect')
+        .data([[0, 0], [50, 0], [100, 0]]) // 막대의 시작점 (x, y)
+        .enter()
+        .append('rect')
+        .attr('fill', 'black')
+        .attr('x', d => x(d[0]))
+        .attr('y', d => y(d[1]))
+        .attr('width', d => x(d[0] + 40) - x(d[0]))
+        .attr('height', d => y(40));
+        
+        d3.select('svg')
+        .call(d3.behavior.zoom().x(x).on('zoom', () => {
+            rectangleSelector
+            .attr('x', d => x(d[0]))
+            .attr('y', d => y(d[1]))
+            .attr('width', d => x(d[0] + 40) - x(d[0]))
+            .attr('height', d => y(40));
+        }));
+    </script>
+</body>
+</html>
